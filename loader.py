@@ -72,7 +72,7 @@ def update():
     for listname in ["requirements"]:
         for k, v in config[listname].items():
             result = load(v,k)
-    if get_files_list(config['username'], config['repo']):
+    if get_files_list(config['username'], config['repo'], config['branch']):
         target_state = load_json("file-list.json")['tree']
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+config['branch']+"/"
         for file in target_state:
