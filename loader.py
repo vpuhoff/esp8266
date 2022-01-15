@@ -28,7 +28,7 @@ def exists(filename):
 
 
 def load(url, filename, chunk_size=256):
-    response = urequests.get(url, stream=True)
+    response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
     if response.status_code == 200:
         with open(filename+".new", 'wb') as f:
