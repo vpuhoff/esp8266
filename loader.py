@@ -25,7 +25,7 @@ def get_date(url, header_name='ETag'):
     date = None
     for header in headers:
         vars = header.split(':', 1)
-        print(vars)
+        #print(vars)
         if vars[0].strip() == header_name:
             del headers
             return vars[1]
