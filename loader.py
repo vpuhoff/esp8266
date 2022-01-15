@@ -74,8 +74,8 @@ def load(url, filename, chunk_size=256):
 
 def update():
     new_files = False
-    for listname in [["requirements",""]:
-        for k, v in config["requirements"].items():
+    for listname in ["requirements","modules"]:
+        for k, v in config[listname].items():
             result = load(v,k)
             if result:
                 new_files = True
@@ -83,5 +83,3 @@ def update():
         with open("files-state.json" ,"wb") as f:
             ujson.dump(files_state, f)
         print("Files state saved success")
-    # for k, v in config["requirements"].items():
-    #     check_load(v,k)
