@@ -90,5 +90,7 @@ def update():
                     files_state[filename] = file['sha']
                     files_state.flush()
                     gc.collect()
-        print(target_state)
+        os.remove("file-list.json")
+        gc.collect()
+        files_state.close()
 
