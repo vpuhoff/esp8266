@@ -69,8 +69,10 @@ def get_files_list(username, repo):
     return True
 
 def update():
-    result = get_files_list(config['username'], config['repo'])
     for listname in ["requirements"]:
         for k, v in config[listname].items():
             result = load(v,k)
+    if get_files_list(config['username'], config['repo']):
+        target_state = load_json("file-list.json")
+        print(target_state)
 
