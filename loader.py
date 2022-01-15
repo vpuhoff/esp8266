@@ -87,5 +87,6 @@ def update():
                 load(base_url+filename, filename)
                 files_state[filename] = file['sha']
                 files_state.flush()
+                gc.collect()
         print(target_state)
 
