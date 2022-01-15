@@ -1,7 +1,8 @@
 {
     "requirements": {
         "mrequests.py": "https://raw.githubusercontent.com/SpotlightKid/mrequests/master/mrequests.py",
-        "loader.py": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/loader.py"
+        "loader.py": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/loader.py",
+        "config.json": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/config.json"
     },
     "use_mrequests": true,
     "username": "vpuhoff",
