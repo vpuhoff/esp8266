@@ -43,7 +43,7 @@ def load(url, filename, chunk_size=256):
     if mrequests:
         remote_date = get_date(url)
         local_date = files_state.get(filename, None)
-        print(local_date, remote_date)
+        #print(local_date, remote_date)
         if remote_date == local_date:
             existed = True
         else:
@@ -70,7 +70,10 @@ def load(url, filename, chunk_size=256):
         print("File " + filename + " already up to date!: ")
         return False
 
-
+def save_state():
+    with open("files-state.json" ,"wb") as f:
+        ujson.dump(files_state, f)
+        print("Files state saved success")
 
 def update():
     new_files = False
@@ -80,6 +83,4 @@ def update():
             if result:
                 new_files = True
     if new_files:
-        with open("files-state.json" ,"wb") as f:
-            ujson.dump(files_state, f)
-        print("Files state saved success")
+        save_state()
