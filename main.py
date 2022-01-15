@@ -1,5 +1,5 @@
 from time import sleep
-from loader import test_load
+from loader import update
 
-test_load()
+update()
 sleep(3)
