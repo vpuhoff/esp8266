@@ -6,5 +6,6 @@
     },
     "use_mrequests": true,
     "username": "vpuhoff",
-    "repo": "esp8266"
+    "repo": "esp8266",
+    "branch": "master"
 }

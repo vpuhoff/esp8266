@@ -47,8 +47,8 @@ def load(url, filename, chunk_size=256):
     gc.collect()
     return True
 
-def get_files_list(username, repo):
-    list_url = "https://api.github.com/repos/"+username+"/"+repo+"/git/trees/master?recursive=1"
+def get_files_list(username, repo, branch):
+    list_url = "https://api.github.com/repos/"+username+"/"+repo+"/git/trees/"+branch+"?recursive=1"
     response = urequests.get(list_url, stream=True, headers={'User-Agent': 'request'})
     sha = response.raw.read(47).decode().split(':')[1][1:]
     del response
@@ -73,6 +73,19 @@ def update():
         for k, v in config[listname].items():
             result = load(v,k)
     if get_files_list(config['username'], config['repo']):
-        target_state = load_json("file-list.json")
+        target_state = load_json("file-list.json")['tree']
+        base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+config['branch']+"/"
+        for file in target_state:
+            filename = file['path']
+            need_load = False
+            if filename not in files_state:
+                need_load = True
+            else:
+                if files_state[filename] != file['sha']:
+                    need_load = True
+            if need_load:
+                load(base_url+filename, filename)
+                files_state[filename] = file['sha']
+                files_state.flush()
         print(target_state)
 
