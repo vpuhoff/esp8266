@@ -5,6 +5,7 @@ except:
     mrequests = None
 import ujson
 import os
+import gc
 
 def load_json(filename):
     with open(filename,"r") as f:
@@ -26,6 +27,7 @@ def get_date(url, header_name='ETag'):
             del response
             return vars[1]
     del response
+    gc.collect()
 
 
 config = load_json("config.json")
