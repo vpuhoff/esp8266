@@ -20,16 +20,18 @@ print('network config:', sta_if.ifconfig())
 
 gc.collect()
 
+def load_updates(size, free):
+    print('free %d of %d blocks' % (free, size))
+    from loader import update
+    update()
+    print('free %d of %d blocks' % (free, size))
 
- 
 if machine.reset_cause() == machine.DEEPSLEEP_RESET:
     print('woke from a deep sleep')
-    
 else:
     print('power on or hard reset')
     stat = uos.statvfs ("/")
     size = stat[0]
     free = stat[3]
-    print('free %d of %d blocks' % (free, size))
- 
- 
+    load_updates(size, free)
+    gc.collect()
