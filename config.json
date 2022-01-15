@@ -2,13 +2,7 @@
     "requirements": {
         "mrequests.py": "https://raw.githubusercontent.com/SpotlightKid/mrequests/master/mrequests.py"
     },
-    "modules": {
-        "config.json": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/config.json",
-        "loader.py": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/loader.py",
-        "main.py": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/main.py",
-        "boot.py": "https://raw.githubusercontent.com/vpuhoff/esp8266/master/boot.py"
-    },
-    "config": {
-        "use_mrequests": true
-    }
+    "use_mrequests": true,
+    "username": "vpuhoff",
+    "repo": "esp8266"
 }
