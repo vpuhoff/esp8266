@@ -6,7 +6,7 @@ import uos, machine
 #uos.dupterm(None, 1) # disable REPL on UART(0)
 import gc
 import network
-sta_if = network.WLAN(network.STA_IF);
+sta_if = network.WLAN(network.STA_IF)
 sta_if.active(True)
 sta_if.connect("DarkNet Core", "Integral320") # Connect to an AP
 sta_if.isconnected()                      # Check for successful connection
