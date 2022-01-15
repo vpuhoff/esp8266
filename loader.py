@@ -64,10 +64,12 @@ def load(url, filename, chunk_size=256):
         else:
             print("File " + filename + " download failed!: ", response.status_code)
         del response
+        gc.collect()
         return True
     else:
         print("File " + filename + " already up to date!: ")
         return False
+    
 
 def save_state():
     with open("files-state.json" ,"wb") as f:
