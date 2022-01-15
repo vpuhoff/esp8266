@@ -19,7 +19,7 @@ def exists(filename):
     except:
         return False
 
-def get_date(url, header_name='ETag'):
+def get_date(url, header_name='Date'):
     response = mrequests.head(url, save_headers=True)
     for header in response.headers:
         vars = header.decode().split(':', 1)
