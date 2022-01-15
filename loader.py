@@ -19,7 +19,7 @@ def exists(filename):
     except:
         return False
 
-def get_date(url, header_name='Content-Length'):
+def get_state(url, header_name='Content-Length'):
     response = mrequests.head(url, save_headers=True)
     for header in response.headers:
         vars = header.decode().split(':', 1)
@@ -40,13 +40,13 @@ else:
 def load(url, filename, chunk_size=256):
     existed = False
     if mrequests:
-        remote_date = get_date(url)
-        local_date = files_state.get(filename, None)
-        #print(local_date, remote_date)
-        if remote_date == local_date:
+        remote_state = get_state(url)
+        local_state = files_state.get(filename, None)
+        print(local_state, remote_state)
+        if remote_state == local_state:
             existed = True
         else:
-            files_state[filename] = remote_date
+            files_state[filename] = remote_state
     if not existed:
         response = urequests.get(url, stream=True)
         chunk = b''
