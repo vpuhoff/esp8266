@@ -78,16 +78,17 @@ def update():
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+config['branch']+"/"
         for file in target_state:
             filename = file['path']
-            need_load = False
-            if filename not in files_state:
-                need_load = True
-            else:
-                if files_state[filename] != file['sha']:
+            if file['type'] == 'blob':
+                need_load = False
+                if filename not in files_state:
                     need_load = True
-            if need_load:
-                load(base_url+filename, filename)
-                files_state[filename] = file['sha']
-                files_state.flush()
-                gc.collect()
+                else:
+                    if files_state[filename] != file['sha']:
+                        need_load = True
+                if need_load:
+                    load(base_url+filename, filename)
+                    files_state[filename] = file['sha']
+                    files_state.flush()
+                    gc.collect()
         print(target_state)
 
