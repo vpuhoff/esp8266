@@ -20,15 +20,12 @@ def exists(filename):
 
 def get_date(url, header_name='ETag'):
     response = mrequests.head(url, save_headers=True)
-    headers = [header.decode() for header in response.headers]
-    del response
-    date = None
-    for header in headers:
-        vars = header.split(':', 1)
-        #print(vars)
+    for header in response.headers:
+        vars = header.decode().split(':', 1)
         if vars[0].strip() == header_name:
-            del headers
+            del response
             return vars[1]
+    del response
 
 
 config = load_json("config.json")
