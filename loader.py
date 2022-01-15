@@ -26,8 +26,7 @@ def exists(filename):
     except:
         return False
 
-
-def load(url, filename, chunk_size=256):
+def load(url, filename, chunk_size=64):
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
     if response.status_code == 200:
