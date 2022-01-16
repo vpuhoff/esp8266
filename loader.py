@@ -11,7 +11,7 @@ except OSError:
 files_state = btree.open(f)
 
 def isdir(file):
-    return list(uos.stat(file))[-1] == 0
+    return list(os.stat(file))[-1] == 0
 
 def split(p):
     """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
@@ -24,7 +24,7 @@ def split(p):
         head = head.rstrip(sep)
     return head, tail
 
-def makedirs(name, mode=0o777, exist_ok=True):
+def makedirs(name, exist_ok=True):
     head, tail = split(name)
     if not tail:
         head, tail = split(head)
@@ -40,7 +40,7 @@ def makedirs(name, mode=0o777, exist_ok=True):
         if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
             return
     try:
-        os.mkdir(name, mode)
+        os.mkdir(name)
     except OSError:
         # Cannot rely on checking for EEXIST, since the operating system
         # could give priority to other errors like EACCES or EROFS
