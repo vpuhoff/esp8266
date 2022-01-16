@@ -24,6 +24,11 @@ def exists(filename):
 
 def load(url, filename, chunk_size=64):
     print('Loading ', filename)
+    try:
+        os.makedirs(filename)
+    except:
+        pass
+
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
     if response.status_code == 200:
