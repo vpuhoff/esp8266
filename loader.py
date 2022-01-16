@@ -115,9 +115,10 @@ def update():
             result = load(v,k)
     gc.collect()
     if get_files_list(config['username'], config['repo'], config['branch']):
-        print("Free memory before load list: ", gc.mem_free())
+        before_mem = gc.mem_free()
         target_state = load_json("file-list.json")['tree']
-        print("Free memory after load list: ", gc.mem_free())
+        after_mem = gc.mem_free()
+        print("File list in memory size: ", after_mem-before_mem)
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+config['branch']+"/"
         for file in target_state:
             filename = file['path']
