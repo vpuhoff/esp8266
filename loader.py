@@ -62,7 +62,7 @@ def exists(filename):
         return False
 
 def load(url, filename, chunk_size=64):
-    print('Loading ', filename)
+    #print('Loading ', filename)
     if split(filename)[0] is not None:
         makedirs(split(filename)[0])
 
@@ -137,6 +137,6 @@ def update():
                     #print("Free memory: ", gc.mem_free())
         #os.remove("file-list.json")
         gc.collect()
-        print("Free memory: ", gc.mem_free())
+        #print("Free memory: ", gc.mem_free())
         files_state.close()
 
