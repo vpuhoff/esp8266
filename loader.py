@@ -141,4 +141,5 @@ def update():
         #print("Free memory: ", gc.mem_free())
         files_state.close()
     machine.freq(80000000)
+    print("soft reset")
     machine.soft_reset()
