@@ -68,7 +68,6 @@ def load(url, filename, chunk_size=64):
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request', 'Cache-Control': 'no-cache'})
     chunk = b''
     if response.status_code == 200:
-        print("Remove old file")
         if exists(filename+".new"):
             os.remove(filename+".new")
         with open(filename+".new", 'wb') as f:
