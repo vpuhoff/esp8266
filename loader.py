@@ -15,12 +15,9 @@ def isdir(file):
     return list(os.stat(file))[-1] == 0
 
 def split(p):
-    """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
-    everything after the final slash.  Either part may be empty."""
-    p = ''
     sep = '/'
-    k = p.split(p, sep, 1)
-    head, tail = k[0], k[1]
+    i = p.rfind(sep) + 1
+    head, tail = p[:i], p[i:]
     if head and head != sep*len(head):
         head = head.rstrip(sep)
     return head, tail
