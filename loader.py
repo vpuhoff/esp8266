@@ -32,6 +32,7 @@ def load(url, filename, chunk_size=64):
                 if not chunk:
                     break
                 f.write(chunk)
+                del chunk
         if exists(filename):
             os.remove(filename)
         os.rename(filename+".new", filename)
