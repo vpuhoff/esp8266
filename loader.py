@@ -126,7 +126,7 @@ def update():
                 if filename not in files_state:
                     need_load = True
                 else:
-                    if files_state[filename] != file['sha']:
+                    if files_state[filename].decode() != file['sha']:
                         need_load = True
                 if need_load:
                     load(base_url+filename, filename)
