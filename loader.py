@@ -51,10 +51,11 @@ def get_files_list(username, repo, branch):
     sha = response.raw.read(47).decode().split(':')[1][1:]
     del response
     gc.collect()
+    print('test111')
     if 'files_state' in files_state:
         if sha == files_state['files_state'].decode():
             print("Files already up to date")
-            return False
+            return True
         else:
             files_state['files_state'] = sha
             files_state.flush()
