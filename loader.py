@@ -63,7 +63,9 @@ def exists(filename):
 
 def load(url, filename, chunk_size=64):
     if split(filename)[0] is not None:
-        makedirs(split(filename)[0])
+        folder = split(filename)[0]
+        print(folder)
+        makedirs(folder)
     print(url)
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request', 'Cache-Control': 'no-cache'})
     chunk = b''
