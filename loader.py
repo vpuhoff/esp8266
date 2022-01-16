@@ -91,7 +91,7 @@ def update():
                     files_state.flush()
                     gc.collect()
                     print("Free memory: ", gc.mem_free())
-        os.remove("file-list.json")
+        #os.remove("file-list.json")
         gc.collect()
         print("Free memory: ", gc.mem_free())
         files_state.close()
