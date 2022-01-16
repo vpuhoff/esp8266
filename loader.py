@@ -52,7 +52,7 @@ def get_files_list(username, repo, branch):
     del response
     gc.collect()
     if 'files_state' in files_state:
-        if sha == files_state['files_state']:
+        if sha == files_state['files_state'].decode():
             print("Files already up to date")
             return False
         else:
