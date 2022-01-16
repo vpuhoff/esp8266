@@ -23,6 +23,7 @@ def exists(filename):
         return False
 
 def load(url, filename, chunk_size=64):
+    print('Loading ', filename)
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
     if response.status_code == 200:
@@ -51,7 +52,6 @@ def get_files_list(username, repo, branch):
     sha = response.raw.read(47).decode().split(':')[1][1:]
     del response
     gc.collect()
-    print('test111')
     if 'files_state' in files_state:
         if sha == files_state['files_state'].decode():
             print("Files already up to date")
