@@ -1,8 +1,4 @@
 import urequests
-try:
-    import mrequests
-except:
-    mrequests = None
 import ujson
 import os
 import gc
