@@ -113,7 +113,8 @@ def update():
     machine.freq(160000000)
     for listname in ["requirements"]:
         for k, v in config[listname].items():
-            result = load(v,k)
+            if not exists(k):
+                result = load(v,k)
     gc.collect()
     if get_files_list(config['username'], config['repo'], config['branch']):
         try:

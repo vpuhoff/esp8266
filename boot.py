@@ -21,7 +21,7 @@ print('network config:', sta_if.ifconfig())
 gc.collect()
 
 def load_updates(size, free):
-    print('free %d of %d blocks' % (free, size))
+    print('free %d of %d blocks on internal fs' % (free, size))
     from loader import update
     update()
 
