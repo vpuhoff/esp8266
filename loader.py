@@ -30,18 +30,15 @@ def makedirs(name, exist_ok=True):
         try:
             makedirs(head, exist_ok=exist_ok)
         except FileExistsError:
-            # Defeats race condition when another thread created the path
             pass
         cdir = '.'
         if isinstance(tail, bytes):
             cdir = bytes('.', 'ASCII')
-        if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+        if tail == cdir:
             return
     try:
         os.mkdir(name)
     except OSError:
-        # Cannot rely on checking for EEXIST, since the operating system
-        # could give priority to other errors like EACCES or EROFS
         if not exist_ok or not isdir(name):
             raise
 
@@ -104,9 +101,7 @@ def get_files_list(username, repo, branch):
     else:
         files_state['files_state'] = sha
         files_state.flush()
-    #print("File list changed, loading files list..")
     load(list_url, "file-list.json")
-    #print("File list downloaded")
     return True
 
 def update():
@@ -114,16 +109,13 @@ def update():
     for listname in ["requirements"]:
         for k, v in config[listname].items():
             if not exists(k):
-                result = load(v,k)
+                load(v,k)
     gc.collect()
     if get_files_list(config['username'], config['repo'], config['branch']):
         try:
-            #before_mem = gc.mem_free()
             target_state = load_json("file-list.json")['tree']
-            #after_mem = gc.mem_free()
         except Exception as e:
             print("There is not enough memory to load the list of files")
-            #print("File list in memory size: ", before_mem - after_mem, 'b', int((before_mem-after_mem)/before_mem*100), '%')
         current_commit = files_state['files_state'].decode()
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+current_commit+"/"
         for file in target_state:
@@ -140,10 +132,7 @@ def update():
                     files_state[filename] = file['sha']
                     files_state.flush()
                     gc.collect()
-                    #print("Free memory: ", gc.mem_free())
-        #os.remove("file-list.json")
         gc.collect()
-        #print("Free memory: ", gc.mem_free())
         files_state.close()
     machine.freq(80000000)
     print("Restart system...")
