@@ -29,7 +29,7 @@ def load(url, filename, chunk_size=64):
         with open(filename+".new", 'wb') as f:
             while True:
                 chunk = response.raw.read(chunk_size)
-                if not chunk:
+                if not chunk or len(chunk) == 0:
                     break
                 f.write(chunk)
                 del chunk
