@@ -1,3 +1,5 @@
 from time import sleep
 
-print("asdasd asd asd as ds ")
+print("asdasd")
+print("zxc as ds ")
+print("asdasd ds ")
