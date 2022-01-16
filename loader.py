@@ -92,6 +92,7 @@ def get_files_list(username, repo, branch):
     list_url = "https://api.github.com/repos/"+username+"/"+repo+"/git/trees/"+branch+"?recursive=1"
     response = urequests.get(list_url, stream=True, headers={'User-Agent': 'request'})
     sha = response.raw.read(47).decode().split(':')[1][1:]
+    print("Current state:", sha)
     del response
     gc.collect()
     if 'files_state' in files_state:
