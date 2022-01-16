@@ -71,8 +71,6 @@ def load(url, filename, chunk_size=64):
         print("Remove old file")
         if exists(filename+".new"):
             os.remove(filename+".new")
-        if exists(filename):
-            os.remove(filename)
         with open(filename+".new", 'wb') as f:
             while True:
                 chunk = response.raw.read(chunk_size)
@@ -81,6 +79,8 @@ def load(url, filename, chunk_size=64):
                 f.write(chunk)
                 del chunk
             print("File " + filename + " download success!: ", response.status_code)
+        if exists(filename):
+            os.remove(filename)
         os.rename(filename+".new", filename)
     else:
         print("File " + filename + " download failed!: ", response.status_code)
@@ -121,7 +121,8 @@ def update():
         target_state = load_json("file-list.json")['tree']
         after_mem = gc.mem_free()
         print("File list in memory size: ", before_mem - after_mem, 'b', int((before_mem-after_mem)/before_mem*100), '%')
-        base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+config['branch']+"/"
+        current_commit = files_state['files_state'].decode()
+        base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+current_commit+"/"
         for file in target_state:
             filename = file['path']
             if file['type'] == 'blob':
