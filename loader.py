@@ -110,7 +110,7 @@ def get_files_list(username, repo, branch):
     return True
 
 def update():
-    machine.freq(160)
+    machine.freq(160000000)
     for listname in ["requirements"]:
         for k, v in config[listname].items():
             result = load(v,k)
@@ -140,4 +140,4 @@ def update():
         gc.collect()
         #print("Free memory: ", gc.mem_free())
         files_state.close()
-    machine.freq(80)
+    machine.freq(80000000)
