@@ -116,10 +116,13 @@ def update():
             result = load(v,k)
     gc.collect()
     if get_files_list(config['username'], config['repo'], config['branch']):
-        before_mem = gc.mem_free()
-        target_state = load_json("file-list.json")['tree']
-        after_mem = gc.mem_free()
-        print("File list in memory size: ", before_mem - after_mem, 'b', int((before_mem-after_mem)/before_mem*100), '%')
+        try:
+            #before_mem = gc.mem_free()
+            target_state = load_json("file-list.json")['tree']
+            #after_mem = gc.mem_free()
+        except Exception as e:
+            print("There is not enough memory to load the list of files")
+            #print("File list in memory size: ", before_mem - after_mem, 'b', int((before_mem-after_mem)/before_mem*100), '%')
         current_commit = files_state['files_state'].decode()
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+current_commit+"/"
         for file in target_state:
@@ -142,5 +145,5 @@ def update():
         #print("Free memory: ", gc.mem_free())
         files_state.close()
     machine.freq(80000000)
-    print("soft reset")
+    print("Restart system...")
     machine.soft_reset()
