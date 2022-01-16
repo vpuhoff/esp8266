@@ -3,7 +3,7 @@ from micropython import alloc_emergency_exception_buf
 import esp
 esp.osdebug(None)
 import uos, machine
-#uos.dupterm(None, 1) # disable REPL on UART(0)
+uos.dupterm(None, 1) # disable REPL on UART(0)
 import gc
 import network
 sta_if = network.WLAN(network.STA_IF)
