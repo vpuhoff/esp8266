@@ -70,6 +70,8 @@ def load(url, filename, chunk_size=64):
     if response.status_code == 200:
         if exists(filename+".new"):
             os.remove(filename+".new")
+        if exists(filename):
+            os.remove(filename)
         with open(filename+".new", 'wb') as f:
             while True:
                 chunk = response.raw.read(chunk_size)
@@ -77,10 +79,8 @@ def load(url, filename, chunk_size=64):
                     break
                 f.write(chunk)
                 del chunk
-        if exists(filename):
-            os.remove(filename)
+            print("File " + filename + " download success!: ", response.status_code)
         os.rename(filename+".new", filename)
-        print("File " + filename + " download success!: ", response.status_code)
     else:
         print("File " + filename + " download failed!: ", response.status_code)
     del response
