@@ -112,10 +112,7 @@ def update():
                 load(v,k)
     gc.collect()
     if get_files_list(config['username'], config['repo'], config['branch']):
-        try:
-            target_state = load_json("file-list.json")['tree']
-        except Exception as e:
-            print("There is not enough memory to load the list of files")
+        target_state = load_json("file-list.json")['tree']
         current_commit = files_state['files_state'].decode()
         base_url = "https://raw.githubusercontent.com/"+config['username']+"/"+config['repo']+"/"+current_commit+"/"
         for file in target_state:
