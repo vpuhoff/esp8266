@@ -64,7 +64,7 @@ def exists(filename):
 def load(url, filename, chunk_size=64):
     if split(filename)[0] is not None:
         makedirs(split(filename)[0])
-    print(url)
+    #print(url)
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request', 'Cache-Control': 'no-cache'})
     chunk = b''
     if response.status_code == 200:
@@ -104,9 +104,9 @@ def get_files_list(username, repo, branch):
     else:
         files_state['files_state'] = sha
         files_state.flush()
-    print("File list changed, loading files list..")
+    #print("File list changed, loading files list..")
     load(list_url, "file-list.json")
-    print("File list downloaded")
+    #print("File list downloaded")
     return True
 
 def update():
