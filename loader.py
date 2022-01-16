@@ -1,6 +1,7 @@
 import urequests
 import ujson
 import os
+os.path.
 import uos as os
 import gc
 import btree
@@ -62,7 +63,8 @@ def exists(filename):
 
 def load(url, filename, chunk_size=64):
     print('Loading ', filename)
-    makedirs(filename)
+    if split(filename)[0] is not None:
+        makedirs(split(filename)[0])
 
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
