@@ -1,7 +1,7 @@
 import urequests
 import ujson
 import os
-os.path.
+
 import uos as os
 import gc
 import btree
