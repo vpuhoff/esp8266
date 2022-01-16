@@ -19,8 +19,8 @@ def split(p):
     everything after the final slash.  Either part may be empty."""
     p = ''
     sep = '/'
-    i = p.rfind(sep) + 1
-    head, tail = p[:i], p[i:]
+    k = p.split(p, sep, 1)
+    head, tail = k[0], k[1]
     if head and head != sep*len(head):
         head = head.rstrip(sep)
     return head, tail
@@ -62,6 +62,7 @@ def exists(filename):
         return False
 
 def load(url, filename, chunk_size=64):
+    print(filename, split(filename))
     if split(filename)[0] is not None:
         folder = split(filename)[0]
         print(folder)
