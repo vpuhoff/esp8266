@@ -24,7 +24,6 @@ def load_updates(size, free):
     print('free %d of %d blocks' % (free, size))
     from loader import update
     update()
-    print('free %d persent' % int((free / size) * 100))
 
 if machine.reset_cause() == machine.DEEPSLEEP_RESET:
     print('woke from a deep sleep')

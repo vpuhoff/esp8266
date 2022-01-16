@@ -134,7 +134,7 @@ def update():
                     files_state[filename] = file['sha']
                     files_state.flush()
                     gc.collect()
-                    print("Free memory: ", gc.mem_free())
+                    #print("Free memory: ", gc.mem_free())
         #os.remove("file-list.json")
         gc.collect()
         print("Free memory: ", gc.mem_free())
