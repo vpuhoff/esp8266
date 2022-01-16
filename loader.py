@@ -1,6 +1,7 @@
 import urequests
 import ujson
 import os
+import uos as os
 import gc
 import btree
 try:
@@ -8,6 +9,43 @@ try:
 except OSError:
     f = open("files_state", "w+b")
 files_state = btree.open(f)
+
+def isdir(file):
+    return list(uos.stat(file))[-1] == 0
+
+def split(p):
+    """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
+    everything after the final slash.  Either part may be empty."""
+    p = ''
+    sep = '/'
+    i = p.rfind(sep) + 1
+    head, tail = p[:i], p[i:]
+    if head and head != sep*len(head):
+        head = head.rstrip(sep)
+    return head, tail
+
+def makedirs(name, mode=0o777, exist_ok=True):
+    head, tail = split(name)
+    if not tail:
+        head, tail = split(head)
+    if head and tail and not exists(head):
+        try:
+            makedirs(head, exist_ok=exist_ok)
+        except FileExistsError:
+            # Defeats race condition when another thread created the path
+            pass
+        cdir = '.'
+        if isinstance(tail, bytes):
+            cdir = bytes('.', 'ASCII')
+        if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+            return
+    try:
+        os.mkdir(name, mode)
+    except OSError:
+        # Cannot rely on checking for EEXIST, since the operating system
+        # could give priority to other errors like EACCES or EROFS
+        if not exist_ok or not isdir(name):
+            raise
 
 def load_json(filename):
     with open(filename,"r") as f:
@@ -24,10 +62,7 @@ def exists(filename):
 
 def load(url, filename, chunk_size=64):
     print('Loading ', filename)
-    try:
-        os.makedirs(filename)
-    except:
-        pass
+    makedirs(filename)
 
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request'})
     chunk = b''
