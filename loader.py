@@ -56,12 +56,9 @@ def exists(filename):
         return False
 
 def load(url, filename, chunk_size=64):
-    print(filename, split(filename))
     if split(filename)[0] is not None:
         folder = split(filename)[0]
-        print(folder)
         makedirs(folder)
-    print(url)
     response = urequests.get(url, stream=True, headers={'User-Agent': 'request', 'Cache-Control': 'no-cache'})
     chunk = b''
     if response.status_code == 200:
